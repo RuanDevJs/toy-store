@@ -1,6 +1,7 @@
 'use client';
+import ENV from '@/settings/env';
 import axios from 'axios';
-import React, { FormEvent, FormEventHandler, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 
 export default function Page() {
     const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export default function Page() {
                 ]
             }
         }
-        await axios.post("http://localhost:3300/clientes", { ...payload });
+        await axios.post(`${ENV.JSON_SERVER_API}/clientes`, { ...payload });
 
     }
     return (

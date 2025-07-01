@@ -17,8 +17,8 @@ export async function GET() {
             cliente_com_maior_media_de_vendas: calculateAverageMostSales,
             cliente_com_maior_numero_de_dias_unicos_com_vendas_registradas:
                 calculateOneDaysSales,
-        });
+        }, { status: 200 });
     } catch (error) {
-        if (error instanceof Error) return NextResponse.json({ error: error.message })
+        if (error instanceof Error) return NextResponse.json({ error: error.message }, { status: 500 })
     }
 }

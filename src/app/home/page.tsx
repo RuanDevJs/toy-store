@@ -1,4 +1,5 @@
 'use client';
+import ENV from '@/settings/env';
 import axios from 'axios';
 import Link from 'next/link';
 import { Column } from 'primereact/column';
@@ -74,7 +75,7 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchCustomers() {
-            const response = await axios.get("http://localhost:3300/clientes");
+            const response = await axios.get(`${ENV.JSON_SERVER_API}/clientes`);
             const data = response.data as ICustomers[];
 
             const vendasDiaMap: Record<string, number> = {};

@@ -74,6 +74,24 @@ export default class CustomersRepository {
         }
     }
 
+    async findByCustomerEmail(email: string) {
+        try {
+            const { client, db } = await this.initDatabase();
+            if (!client || !db)
+                throw new Error(
+                    "Error on find customers - Could not connect on database!"
+                );
+
+            const customer = await db
+                .collection<ICustomerCollection>("customers")
+                .findOne({ email: email });
+            return customer;
+        } catch (error) {
+            if (error instanceof MongoError)
+                console.error("Error on find customer by id - ", error.message);
+        }
+    }
+
     async save(payload: ISavePayload) {
         try {
             const { client, db } = await this.initDatabase();
@@ -87,7 +105,7 @@ export default class CustomersRepository {
                 .insertOne(payload, { forceServerObjectId: true });
         } catch (error) {
             if (error instanceof MongoError)
-                console.error("Error on save customers - ", error.message);
+                throw new Error(`Error on save customers - ${error.message}`);
         }
     }
 
@@ -122,6 +140,23 @@ export default class CustomersRepository {
             await db
                 .collection<ISavePayload>("customers")
                 .findOneAndDelete({ _id: new ObjectId(id) });
+        } catch (error) {
+            if (error instanceof MongoError)
+                console.error("Error on update customer - ", error.message);
+        }
+    }
+
+    async deleteByEmail(email: string) {
+        try {
+            const { client, db } = await this.initDatabase();
+            if (!client || !db)
+                throw new Error(
+                    "Error on delete customers - Could not connect on database!"
+                );
+
+            await db
+                .collection<ISavePayload>("customers")
+                .findOneAndDelete({ email: email });
         } catch (error) {
             if (error instanceof MongoError)
                 console.error("Error on update customer - ", error.message);

@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
             path: "/",
             maxAge: 60 * 60,
         });
-        return NextResponse.json({ token });
+        return NextResponse.json({ token }, { status: 201 });
     } catch (error) {
         if (error instanceof Error) {
             return NextResponse.json({ error: error.message }, { status: 500 });
