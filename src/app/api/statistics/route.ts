@@ -3,9 +3,13 @@ import SalesRepository from "@/database/repositories/SalesRepository";
 import { authenticateUser } from "../auth/route";
 
 export async function GET() {
-    await authenticateUser();
-    const repository = new SalesRepository();
+    try {
+        await authenticateUser();
+        const repository = new SalesRepository();
 
-    const rows = await repository.calculateSalesPerDay();
-    return NextResponse.json({ total_sales_per_day: rows });
+        const rows = await repository.calculateSalesPerDay();
+        return NextResponse.json({ total_sales_per_day: rows });
+    } catch (error) {
+        if (error instanceof Error) return NextResponse.json({ error: error.message })
+    }
 }
