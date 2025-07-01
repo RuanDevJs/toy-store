@@ -27,12 +27,12 @@ export default function Page() {
             }
 
             const payload = { email, password };
-            await axios.post(`${ENV.BACKEND_API}/api/auth`, { ...payload });
+            await axios.post(`${ENV.BACKEND_API}/api/auth/register`, { ...payload });
 
             navigate.push("/home");
         } catch (error) {
             if (error instanceof Error) {
-                return toastRef.current.show({ severity: "error", summary: "Erro ao autenticar usuário", detail: "Email ou senha não encontrado!" });
+                return toastRef.current.show({ severity: "error", summary: "Erro ao cadastrar usuário", detail: "Email já cadastrado!" });
             }
         } finally {
             formRef.current?.reset();
@@ -41,7 +41,7 @@ export default function Page() {
     return (
         <main className='w-full mx-auto my-20 space-y-10' onSubmit={handleSubmit}>
             <form ref={formRef} className='w-[80%] m-auto flex flex-col items-center'>
-                <h1 className='text-4xl font-semibold text-zinc-900'>Toy Store - Autenticação</h1>
+                <h1 className='text-4xl font-semibold text-zinc-900'>Toy Store - Cadastrar</h1>
                 <div className='w-[32%] flex flex-col gap-3 mt-5'>
                     <div className='w-full flex flex-col'>
                         <label htmlFor="email" className='text-zinc-700 font-normal text-lg'>Email</label>
@@ -52,10 +52,10 @@ export default function Page() {
                         <input onChange={event => setPassword(event.target.value)} type="password" id="password" className='w-full p-3.5 bg-zinc-100 rounded outline-none' placeholder='****' />
                     </div>
                     <button className='w-[42%] m-auto p-2.5 bg-blue-600 mt-3 rounded text-white cursor-pointer'>
-                        Fazer login
+                        Fazer cadastro
                     </button>
-                    <Link className='text-zinc-600 font-medium text-sm text-right' href="/cadastrar">
-                        Gostaria de me cadastrar
+                    <Link className='text-zinc-600 font-medium text-sm text-right' href="/">
+                        Gostaria de fazer login
                     </Link>
                 </div>
             </form>

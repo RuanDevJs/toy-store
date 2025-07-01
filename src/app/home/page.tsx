@@ -60,9 +60,9 @@ export default function Home() {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
         const normalizedName = name
             .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "") // remove acentos
+            .replace(/[\u0300-\u036f]/g, "")
             .toLowerCase()
-            .replace(/[^a-z]/g, ''); // remove espaços e símbolos
+            .replace(/[^a-z]/g, '');
 
         for (const letter of alphabet) {
             if (!normalizedName.includes(letter)) {
@@ -134,7 +134,7 @@ export default function Home() {
     return (
         <main className='w-full mx-auto my-20 space-y-10'>
             <header className='w-full flex flex-col items-center'>
-                <h1 className='text-4xl font-semibold text-zinc-900'>Toy Store - Discover, Play and Smile</h1>
+                <h1 className='text-4xl font-semibold text-zinc-900'>Toy Store - Dashboard</h1>
                 <div className='my-3 flex gap-3'>
                     <Link href="/home/create-new-customer" className="block bg-green-600 text-white px-4 py-1 rounded">Registrar novo cliente</Link>
                 </div>

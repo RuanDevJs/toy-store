@@ -1,4 +1,4 @@
-describe("POST /api/login", () => {
+describe("POST /api/auth", () => {
     it("Deve retornar o status 201 quando a autenticação for válida", () => {
         cy.request({
             method: "POST",
@@ -204,7 +204,7 @@ describe("PUT /api/customers/:id", () => {
     });
 });
 
-describe.only("GET /api/statistics", () => {
+describe("GET /api/statistics", () => {
     beforeEach(() => {
         cy.request({
             method: "POST",
@@ -232,7 +232,7 @@ describe.only("GET /api/statistics", () => {
     });
 });
 
-describe.only("GET /api/statistics/average", () => {
+describe("GET /api/statistics/average", () => {
     beforeEach(() => {
         cy.request({
             method: "POST",
